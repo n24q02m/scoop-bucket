@@ -1,19 +1,19 @@
 {
-    "version": "1.8.0",
+    "version": "1.9.0-beta.1",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/n24q02m/skret/releases/download/v1.8.0/skret_1.8.0_windows_amd64.zip",
+            "url": "https://github.com/n24q02m/skret/releases/download/v1.9.0-beta.1/skret_1.9.0-beta.1_windows_amd64.zip",
             "bin": [
                 "skret.exe"
             ],
-            "hash": "debd77877f04353887274dee3f6eb35e79d6ee510deae5735037a31c54363812"
+            "hash": "a14a11816c2929f574e759e8e6379427f58e630e1106097ec410e4861f4e6688"
         },
         "arm64": {
-            "url": "https://github.com/n24q02m/skret/releases/download/v1.8.0/skret_1.8.0_windows_arm64.zip",
+            "url": "https://github.com/n24q02m/skret/releases/download/v1.9.0-beta.1/skret_1.9.0-beta.1_windows_arm64.zip",
             "bin": [
                 "skret.exe"
             ],
-            "hash": "78078216b72f5a04f841a5cc702dfe2ce27b72f7ef80428604e9be91f4150d9c"
+            "hash": "8c551d54e8d2c89c27a8170c46be0fe2f6628063ad1abd839c659f39a171f51a"
         }
     },
     "homepage": "https://skret.n24q02m.com",
