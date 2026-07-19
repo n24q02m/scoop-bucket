@@ -1,15 +1,25 @@
 {
-    "version": "1.2.0",
+    "version": "1.3.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/n24q02m/better-drive/releases/download/v1.2.0/better-drive_1.2.0_windows_amd64.zip",
+            "url": "https://github.com/n24q02m/better-drive/releases/download/v1.3.0/better-drive_1.3.0_windows_amd64.zip",
             "bin": [
                 "better-drive.exe"
             ],
-            "hash": "53b409eef40b76fd0f7b4fb76b159d587451d1d4c2aabf3976d4b63ba657dad8"
+            "hash": "0ed5b8936de1a0ab4b5ee6a4ba4c9db7f2c33ebc792303c9d3bec7b321f924ff"
+        },
+        "arm64": {
+            "url": "https://github.com/n24q02m/better-drive/releases/download/v1.3.0/better-drive_1.3.0_windows_arm64.zip",
+            "bin": [
+                "better-drive.exe"
+            ],
+            "hash": "92cbd529838f09a347579523368e709fcac925d4b6f611e6cad2dbb6ef8a07d2"
         }
     },
     "homepage": "https://github.com/n24q02m/better-drive",
     "license": "MIT",
-    "description": "2-way Google Drive sync with .driveignore filter (rclone engine, Windows tray)"
+    "description": "2-way Google Drive sync with .driveignore filter (rclone engine, Windows tray)",
+    "depends": [
+        "rclone"
+    ]
 }
