@@ -1,19 +1,19 @@
 {
-    "version": "1.5.0-beta.1",
+    "version": "1.5.0-beta.2",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/n24q02m/better-drive/releases/download/v1.5.0-beta.1/better-drive_1.5.0-beta.1_windows_amd64.zip",
+            "url": "https://github.com/n24q02m/better-drive/releases/download/v1.5.0-beta.2/better-drive_1.5.0-beta.2_windows_amd64.zip",
             "bin": [
                 "better-drive.exe"
             ],
-            "hash": "a03696a97d8fa24187229682d9f8d6156e589a6c239f4292840ab67eb7b5b3cd"
+            "hash": "17891684a6d794f764b9ba2cf7bc431440100a49079508f1ca9025ca43937d17"
         },
         "arm64": {
-            "url": "https://github.com/n24q02m/better-drive/releases/download/v1.5.0-beta.1/better-drive_1.5.0-beta.1_windows_arm64.zip",
+            "url": "https://github.com/n24q02m/better-drive/releases/download/v1.5.0-beta.2/better-drive_1.5.0-beta.2_windows_arm64.zip",
             "bin": [
                 "better-drive.exe"
             ],
-            "hash": "b36db9f9c8f297dd9f963c1bf4dd030b7a900c355e4f03f8b85459e8a1f9686d"
+            "hash": "718b5641164db6be2450348932b6986e907f7ad8ce4361dca0e77180fd8c970b"
         }
     },
     "homepage": "https://github.com/n24q02m/better-drive",
