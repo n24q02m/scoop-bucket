@@ -17,6 +17,6 @@
         }
     },
     "homepage": "https://skret.n24q02m.com",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "description": "Cloud-provider secret manager CLI with Doppler/Infisical-grade DX"
 }

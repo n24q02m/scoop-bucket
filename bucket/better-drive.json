@@ -17,7 +17,7 @@
         }
     },
     "homepage": "https://github.com/n24q02m/better-drive",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "description": "2-way Google Drive sync with .driveignore filter (rclone engine, Windows tray)",
     "depends": [
         "rclone"
