@@ -6,14 +6,14 @@
             "bin": [
                 "skret.exe"
             ],
-            "hash": "0b0d6d1398714cf1ff6b757a6f8f01a31fd54b5703c4ae1734a57a24402841aa"
+            "hash": "0d4633f849f1ada40f0fe31c1e58a6fcfee7d853c94b10ef56eb4ee52aac8677"
         },
         "arm64": {
             "url": "https://github.com/n24q02m/skret/releases/download/v1.16.0/skret_1.16.0_windows_arm64.zip",
             "bin": [
                 "skret.exe"
             ],
-            "hash": "70df8fc921941d2bf1430ebec3c020222698f92c9da80e1ad3df10350bbe4f2e"
+            "hash": "20cbed6049a230a84d54f605b27d7d0e1a0b591854b47bfae41febc44c20f76a"
         }
     },
     "homepage": "https://skret.n24q02m.com",
