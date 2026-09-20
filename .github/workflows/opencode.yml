@@ -9,7 +9,7 @@ on:
   # Fork PRs get no secrets on `pull_request`; `pull_request_target` runs in the base
   # context. Checkout stays on the base ref, so untrusted PR code is never executed.
   pull_request_target:
-    types: [opened]
+    types: [opened, synchronize, reopened]
 
 permissions: {}
 
