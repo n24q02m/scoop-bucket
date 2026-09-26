@@ -12,3 +12,8 @@
 **Vulnerability:** An AI code review bot was configured with a prompt allowing it to output `APPROVE` on PRs, while its action had `pull-requests: write` permissions. A malicious contributor could inject prompts into PR code or descriptions to trick the AI into approving malicious changes, bypassing branch protection rules.
 **Learning:** AI systems reviewing untrusted input must operate under the principle of least privilege. If the AI can be tricked by its input, giving it authorization power (like PR approvals) creates a critical vulnerability.
 **Prevention:** Never instruct AI code reviewers to issue `APPROVE` verdicts if they run on untrusted PRs. Restrict their output to `COMMENT` only, ensuring human reviewers always have the final say on merging.
+
+## 2026-09-26 - Rejected CI/CD Privilege Reduction
+**Vulnerability:** A proposal to downgrade the `mention` job's `contents: write` permission to `contents: read` to prevent AI prompt injection.
+**Learning:** The fix was rejected because it introduced a critical breaking change. The workflow relies on `contents: write` to fulfill its documented purpose (e.g., recording learnings into `.github/review-learnings.md`). Arbitrarily stripping permissions without understanding the operational constraints causes CI/CD failures and breaks core functionality.
+**Prevention:** Do not make breaking permission changes to operational CI/CD jobs. Mitigate AI-driven risks through application-level constraints (e.g., prompt engineering, isolating the write context, enforcing branch protection, or requiring human-in-the-loop review for all commits made by bots).
