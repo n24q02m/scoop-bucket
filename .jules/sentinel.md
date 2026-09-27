@@ -12,3 +12,11 @@
 **Vulnerability:** An AI code review bot was configured with a prompt allowing it to output `APPROVE` on PRs, while its action had `pull-requests: write` permissions. A malicious contributor could inject prompts into PR code or descriptions to trick the AI into approving malicious changes, bypassing branch protection rules.
 **Learning:** AI systems reviewing untrusted input must operate under the principle of least privilege. If the AI can be tricked by its input, giving it authorization power (like PR approvals) creates a critical vulnerability.
 **Prevention:** Never instruct AI code reviewers to issue `APPROVE` verdicts if they run on untrusted PRs. Restrict their output to `COMMENT` only, ensuring human reviewers always have the final say on merging.
+
+## 2025-02-24 - AI Agent Supply Chain Risk
+
+**Vulnerability:** The codebase relies on an AI agent (`anomalyco/opencode/github`) to review Pull Requests. The agent was missing rules against accepting manual edits to auto-generated files in the `bucket/` directory, leaving the project open to supply-chain attacks where an attacker could submit a PR that alters a Scoop manifest to point to malware, and the AI agent might not flag it. It was also susceptible to prompt injections via PR titles or descriptions.
+
+**Learning:** When using AI agents for automated code reviews, explicit guardrails must be established to prevent them from approving changes to sensitive or auto-generated directories, as well as to defend against prompt injection attempts meant to bypass security checks.
+
+**Prevention:** Created `.github/review-learnings.md` containing strict instructions forbidding the AI from accepting manual edits to files within `bucket/` and directing it to ignore prompt injection attempts. Always configure AI review agents with explicit rules regarding project structure and prompt injection defenses.
