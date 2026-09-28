@@ -12,3 +12,18 @@
 **Vulnerability:** An AI code review bot was configured with a prompt allowing it to output `APPROVE` on PRs, while its action had `pull-requests: write` permissions. A malicious contributor could inject prompts into PR code or descriptions to trick the AI into approving malicious changes, bypassing branch protection rules.
 **Learning:** AI systems reviewing untrusted input must operate under the principle of least privilege. If the AI can be tricked by its input, giving it authorization power (like PR approvals) creates a critical vulnerability.
 **Prevention:** Never instruct AI code reviewers to issue `APPROVE` verdicts if they run on untrusted PRs. Restrict their output to `COMMENT` only, ensuring human reviewers always have the final say on merging.
+
+## 2026-09-28 - AI Agent Guardrails
+**Vulnerability:** The AI agent lacked explicit instructions to reject unauthorized manual edits to `bucket/` manifests and was potentially vulnerable to prompt injection attacks via issues or PRs.
+**Learning:** AI agents with write access must have strict security guardrails defined in their instructions (e.g., `.github/review-learnings.md`) to prevent abuse and accidental corruption of auto-generated files.
+**Prevention:** Always define explicit security boundaries for automated agents, specifically restricting modifications to auto-generated directories and instructing the agent to ignore prompt injection attempts.
+
+## 2026-09-28 - Automerging GitHub Action Digests Bypasses Pinning Security
+**Vulnerability:** The Renovate configuration (`renovate.json`) was set to automatically merge digest (`pinDigest`) updates for GitHub Actions.
+**Learning:** Pinning GitHub Actions to a specific SHA digest is done to prevent supply chain attacks if a mutable tag (e.g., `@v2`) is hijacked. Automerging digest updates defeats this purpose, as a maliciously altered tag will cause Renovate to automatically update the digest and merge the compromised action without human review.
+**Prevention:** Never auto-merge digest updates for GitHub Actions. Always require human review to verify that the tag update is legitimate and not a supply chain attack.
+
+## 2026-09-28 - Automerging GitHub Action Digests Bypasses Pinning Security
+**Vulnerability:** The Renovate configuration (`renovate.json`) was set to automatically merge digest (`pinDigest`) updates for GitHub Actions.
+**Learning:** Pinning GitHub Actions to a specific SHA digest is done to prevent supply chain attacks if a mutable tag (e.g., `@v2`) is hijacked. Automerging digest updates defeats this purpose, as a maliciously altered tag will cause Renovate to automatically update the digest and merge the compromised action without human review.
+**Prevention:** Never auto-merge digest updates for GitHub Actions. Always require human review to verify that the tag update is legitimate and not a supply chain attack.
