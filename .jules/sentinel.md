@@ -12,3 +12,8 @@
 **Vulnerability:** An AI code review bot was configured with a prompt allowing it to output `APPROVE` on PRs, while its action had `pull-requests: write` permissions. A malicious contributor could inject prompts into PR code or descriptions to trick the AI into approving malicious changes, bypassing branch protection rules.
 **Learning:** AI systems reviewing untrusted input must operate under the principle of least privilege. If the AI can be tricked by its input, giving it authorization power (like PR approvals) creates a critical vulnerability.
 **Prevention:** Never instruct AI code reviewers to issue `APPROVE` verdicts if they run on untrusted PRs. Restrict their output to `COMMENT` only, ensuring human reviewers always have the final say on merging.
+
+## 2026-10-02 - Missing AI Agent Guardrails
+**Vulnerability:** The `.github/review-learnings.md` file, which is explicitly referenced in `opencode.yml` to provide binding instructions to the AI reviewing agent, was missing. This lack of constraints left the AI agent susceptible to prompt injections from malicious PRs/issues and allowed manual edits to auto-generated files in `bucket/`.
+**Learning:** AI agents integrated via CI/CD workflows require explicit boundary setting, just like standard software. Relying on default system prompts is insufficient when handling untrusted inputs (user PRs/issues). The absence of the `.github/review-learnings.md` file broke the expected defense-in-depth security model.
+**Prevention:** Always initialize required AI context/guardrail files alongside the workflow definitions that consume them. Ensure these files include explicit protections against prompt injection and unauthorized modifications to critical repository components.
