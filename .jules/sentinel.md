@@ -32,3 +32,8 @@
 **Vulnerability:** The `mention` job in the GitHub Actions workflow (`opencode.yml`) granted the AI agent `contents: write` permission to allow it to update `.github/review-learnings.md`. However, because the agent reads untrusted PR diffs and issue bodies when summoned by a maintainer, an attacker could use prompt injection to trick the AI into committing malicious code (like a rogue workflow) directly to the repository.
 **Learning:** If an AI agent has the ability to process untrusted input (like pull request code or issue descriptions), granting it write access to the repository creates a severe prompt injection vulnerability leading to Privilege Escalation and potential Remote Code Execution.
 **Prevention:** Enforce the principle of least privilege for AI-driven GitHub Actions. Never grant `contents: write` permissions to jobs that process untrusted input. If an AI must propose changes to the repo, it should do so by creating a pull request from a fork, rather than pushing directly.
+
+## 2024-09-24 - AI Prompt Injection in Manual Triggers
+**Vulnerability:** The manual trigger (`mention`) job in `.github/workflows/opencode.yml` lacked strict prompt controls, leaving it vulnerable to prompt injection if a maintainer summoned the bot on an attacker-controlled PR.
+**Learning:** Even manual AI triggers require the same strict prompt restrictions as automated ones, because the underlying PR context remains untrusted.
+**Prevention:** Always include a restrictive `prompt` overriding the AI's behavior to forbid dangerous actions (like `APPROVE`) in any job that interacts with untrusted code, regardless of how it was triggered.
