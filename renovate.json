@@ -20,7 +20,7 @@
       "matchUpdateTypes": ["digest", "pinDigest"],
       "groupName": "github-actions digests",
       "groupSlug": "gha-digests",
-      "automerge": true,
+      "automerge": false,
       "automergeType": "pr",
       "minimumReleaseAge": "7 days"
     }
