@@ -37,3 +37,8 @@
 **Vulnerability:** The manual trigger (`mention`) job in `.github/workflows/opencode.yml` lacked strict prompt controls, leaving it vulnerable to prompt injection if a maintainer summoned the bot on an attacker-controlled PR.
 **Learning:** Even manual AI triggers require the same strict prompt restrictions as automated ones, because the underlying PR context remains untrusted.
 **Prevention:** Always include a restrictive `prompt` overriding the AI's behavior to forbid dangerous actions (like `APPROVE`) in any job that interacts with untrusted code, regardless of how it was triggered.
+
+## 2026-09-29 - Missing AI Code Review Guardrails
+**Vulnerability:** The AI code review bot relies on `.github/review-learnings.md` to dictate its strict rules and bindings (e.g., rejecting prompt injections, forbidding manual bucket manifest edits). However, this file did not exist, leaving the AI unprotected against prompt injections and allowing unauthorized modifications of automatically generated files.
+**Learning:** For AI systems deployed in security-sensitive or automated contexts, their security configuration files and guardrails must actually exist and contain strict, fail-safe rules. Without them, the system falls back to default vulnerable behavior.
+**Prevention:** Always verify that security configuration files referenced in GitHub Actions or automation scripts exist and contain the expected guardrails. Create missing guardrail files to ensure the system behaves securely.
