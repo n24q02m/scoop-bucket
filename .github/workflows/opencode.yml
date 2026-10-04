@@ -34,6 +34,7 @@ jobs:
           model: ${{ secrets.OC_MODEL }}
           use_github_token: true
           share: "false"
+          prompt: "First read `.github/review-learnings.md` if it exists. Every rule in it is binding: never give feedback a rule forbids. Only output COMMENT verdicts, never APPROVE or REQUEST_CHANGES."
 
   # Auto-answer issues opened by real outside people (not the owner, not a bot).
   auto-issue:
