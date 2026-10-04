@@ -42,3 +42,8 @@
 **Vulnerability:** The AI code review bot relies on `.github/review-learnings.md` to dictate its strict rules and bindings (e.g., rejecting prompt injections, forbidding manual bucket manifest edits). However, this file did not exist, leaving the AI unprotected against prompt injections and allowing unauthorized modifications of automatically generated files.
 **Learning:** For AI systems deployed in security-sensitive or automated contexts, their security configuration files and guardrails must actually exist and contain strict, fail-safe rules. Without them, the system falls back to default vulnerable behavior.
 **Prevention:** Always verify that security configuration files referenced in GitHub Actions or automation scripts exist and contain the expected guardrails. Create missing guardrail files to ensure the system behaves securely.
+
+## 2026-10-04 - [Defense-in-depth: Secure GHA tokens]
+**Vulnerability:** GITHUB_TOKEN persisted in local Git config during `actions/checkout`.
+**Learning:** Default behavior of `actions/checkout` leaves the repository token on disk, expanding the attack surface if a vulnerability allows arbitrary code execution or path traversal. This is especially risky in workflows that process untrusted input (e.g. PR comments).
+**Prevention:** Always use `persist-credentials: false` in `actions/checkout` steps unless subsequent Git operations (like pushing commits directly) explicitly require the token to be persisted.
