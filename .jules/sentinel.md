@@ -27,3 +27,8 @@
 **Vulnerability:** The Renovate configuration (`renovate.json`) was set to automatically merge digest (`pinDigest`) updates for GitHub Actions.
 **Learning:** Pinning GitHub Actions to a specific SHA digest is done to prevent supply chain attacks if a mutable tag (e.g., `@v2`) is hijacked. Automerging digest updates defeats this purpose, as a maliciously altered tag will cause Renovate to automatically update the digest and merge the compromised action without human review.
 **Prevention:** Never auto-merge digest updates for GitHub Actions. Always require human review to verify that the tag update is legitimate and not a supply chain attack.
+
+## 2025-09-25 - AI Prompt Injection leading to Repository Write Access
+**Vulnerability:** The `mention` job in the GitHub Actions workflow (`opencode.yml`) granted the AI agent `contents: write` permission to allow it to update `.github/review-learnings.md`. However, because the agent reads untrusted PR diffs and issue bodies when summoned by a maintainer, an attacker could use prompt injection to trick the AI into committing malicious code (like a rogue workflow) directly to the repository.
+**Learning:** If an AI agent has the ability to process untrusted input (like pull request code or issue descriptions), granting it write access to the repository creates a severe prompt injection vulnerability leading to Privilege Escalation and potential Remote Code Execution.
+**Prevention:** Enforce the principle of least privilege for AI-driven GitHub Actions. Never grant `contents: write` permissions to jobs that process untrusted input. If an AI must propose changes to the repo, it should do so by creating a pull request from a fork, rather than pushing directly.
