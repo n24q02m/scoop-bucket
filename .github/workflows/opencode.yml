@@ -15,7 +15,9 @@ permissions: {}
 
 jobs:
   # Anyone (including the owner) can summon the agent with /oc on an issue or PR.
-  # It may also record a new rule into .github/review-learnings.md on request.
+  # CRITICAL SECURITY RULE: Do not change `contents: read` to `contents: write`.
+  # Elevating permissions introduces a critical prompt-injection-to-RCE vulnerability
+  # because the workflow processes untrusted inputs from issues/comments.
   mention:
     if: >-
       ${{
@@ -35,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
+      # SEC: Do NOT elevate contents permission to write - RCE risk via prompt injection
       contents: read
       issues: write
       pull-requests: write
@@ -58,6 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
+      # SEC: Do NOT elevate contents permission to write - RCE risk via prompt injection
       contents: read
       issues: write
     steps:
@@ -80,6 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
+      # SEC: Do NOT elevate contents permission to write - RCE risk via prompt injection
       contents: read
       pull-requests: write
     steps:
