@@ -47,3 +47,8 @@
 **Vulnerability:** GITHUB_TOKEN persisted in local Git config during `actions/checkout`.
 **Learning:** Default behavior of `actions/checkout` leaves the repository token on disk, expanding the attack surface if a vulnerability allows arbitrary code execution or path traversal. This is especially risky in workflows that process untrusted input (e.g. PR comments).
 **Prevention:** Always use `persist-credentials: false` in `actions/checkout` steps unless subsequent Git operations (like pushing commits directly) explicitly require the token to be persisted.
+
+## 2024-05-24 - Prevent Privilege Escalation via Misleading Documentation
+**Vulnerability:** A misleading comment in the GitHub Actions workflow `.github/workflows/opencode.yml` suggested the AI agent could "record a new rule into `.github/review-learnings.md` on request."
+**Learning:** If a maintainer had attempted to enable this feature by elevating the workflow's permissions from `contents: read` to `contents: write`, it would have introduced a critical prompt-injection-to-Remote-Code-Execution (RCE) vulnerability. This is because the workflow processes untrusted input (issue and PR comments) which an attacker could use to inject malicious commands into the repository.
+**Prevention:** Remove misleading comments that might encourage unsafe permission escalation, and explicitly document the security risk directly in the workflow file using comments (e.g., `# SEC: Do NOT elevate contents permission to write - RCE risk via prompt injection`).
