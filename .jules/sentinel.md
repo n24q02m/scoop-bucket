@@ -47,3 +47,7 @@
 **Vulnerability:** GITHUB_TOKEN persisted in local Git config during `actions/checkout`.
 **Learning:** Default behavior of `actions/checkout` leaves the repository token on disk, expanding the attack surface if a vulnerability allows arbitrary code execution or path traversal. This is especially risky in workflows that process untrusted input (e.g. PR comments).
 **Prevention:** Always use `persist-credentials: false` in `actions/checkout` steps unless subsequent Git operations (like pushing commits directly) explicitly require the token to be persisted.
+## 2024-10-14 - DoS Risk in CI/CD Workflows
+**Vulnerability:** Missing `timeout-minutes` on GitHub Actions jobs.
+**Learning:** CI/CD jobs without explicit timeouts can run indefinitely if a process hangs, leading to resource exhaustion (DoS) and excessive billing.
+**Prevention:** Always define a `timeout-minutes` value (e.g., 15) for all jobs in GitHub Actions workflows to prevent runaway processes.
