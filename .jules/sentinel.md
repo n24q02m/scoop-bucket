@@ -47,3 +47,7 @@
 **Vulnerability:** GITHUB_TOKEN persisted in local Git config during `actions/checkout`.
 **Learning:** Default behavior of `actions/checkout` leaves the repository token on disk, expanding the attack surface if a vulnerability allows arbitrary code execution or path traversal. This is especially risky in workflows that process untrusted input (e.g. PR comments).
 **Prevention:** Always use `persist-credentials: false` in `actions/checkout` steps unless subsequent Git operations (like pushing commits directly) explicitly require the token to be persisted.
+## 2024-05-30 - Add Timeout to Secret Scanning Workflow
+**Vulnerability:** Missing timeout configuration (`timeout-minutes`) in the GitHub Actions `secret-scanning.yml` workflow.
+**Learning:** Workflows without a defined timeout can run indefinitely (up to GitHub's maximum of 6 hours for most runners or longer depending on configuration), leading to Denial of Service (DoS) conditions by consuming runner minutes and blocking other CI jobs, especially if a step hangs unexpectedly.
+**Prevention:** Always define a `timeout-minutes` value (e.g., 15) for all jobs in GitHub Actions workflows to limit execution time and prevent runaway processes.
