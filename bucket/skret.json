@@ -1,19 +1,19 @@
 {
-    "version": "1.19.1",
+    "version": "1.36.0",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/n24q02m/skret/releases/download/v1.19.1/skret_1.19.1_windows_amd64.zip",
+            "url": "https://github.com/n24q02m/skret/releases/download/v1.36.0/skret_1.36.0_windows_amd64.zip",
             "bin": [
                 "skret.exe"
             ],
-            "hash": "c4253db76871a5656525da42b1b6000d79702d0e312ede1626158a775779e427"
+            "hash": "0b0715d77d119602b59ddf6bc191f54dfe398cade513d2537ae92e0aca3804c0"
         },
         "arm64": {
-            "url": "https://github.com/n24q02m/skret/releases/download/v1.19.1/skret_1.19.1_windows_arm64.zip",
+            "url": "https://github.com/n24q02m/skret/releases/download/v1.36.0/skret_1.36.0_windows_arm64.zip",
             "bin": [
                 "skret.exe"
             ],
-            "hash": "bc1c3cca1187c1190c259068f4930c589feca43c7326e2dfd198576f2b5b2b9c"
+            "hash": "896456f299388c019b9a67b33406dfdf9e0feadaa6f25a80fc9ef77f3159d678"
         }
     },
     "license": "Apache-2.0",
