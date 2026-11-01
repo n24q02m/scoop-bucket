@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "tier": 2,
+  "description": "Scoop bucket for n24q02m's command-line tools, with manifests updated by GoReleaser on each upstream release.",
+  "homepage": "https://github.com/n24q02m/scoop-bucket",
+  "topics": [
+    "scoop",
+    "scoop-bucket",
+    "windows",
+    "cli",
+    "goreleaser",
+    "skret"
+  ]
+}
