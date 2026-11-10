@@ -1,11 +1,11 @@
 {
-    "version": "1.0.0",
+    "version": "4.23.0",
     "description": "Telegram client and bot MCP server and CLI",
     "homepage": "https://github.com/n24q02m/telegram",
     "license": "Apache-2.0",
-    "url": "https://github.com/n24q02m/telegram/archive/refs/tags/v1.0.0.zip",
-    "hash": "767b760bb1d0420a03d49dc04e73b6bc17669e5abd7127140c420527b8f4bb06",
-    "extract_dir": "telegram-1.0.0",
+    "url": "https://github.com/n24q02m/telegram/archive/refs/tags/v4.23.0.zip",
+    "hash": "8f6da614a9efad755d2c080419f2858d1f103b18d10d3716e114602f6c2e7ac4",
+    "extract_dir": "telegram-4.23.0",
     "suggest": {
         "python": "python"
     },
