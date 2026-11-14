@@ -66,11 +66,12 @@ jobs:
           ./install.ps1 -RunAsAdmin
           "$env:USERPROFILE\scoop\shims" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
       - name: Install from this checkout
+        # `scoop bucket add` only takes a Git URL, so install the manifest file directly;
+        # its `depends` (uv, nodejs) still resolve from the main bucket.
         env:
           APP: ${{ matrix.app }}
         run: |
-          scoop bucket add n24q02m "$env:GITHUB_WORKSPACE"
-          scoop install "n24q02m/$env:APP"
+          scoop install "bucket/$env:APP.json"
           if ($LASTEXITCODE) { throw "scoop install $env:APP failed" }
       - name: CLI reports the manifest version
         env:
