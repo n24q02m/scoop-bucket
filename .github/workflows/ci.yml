@@ -32,6 +32,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  locks:
+    name: manifests match the registry and their lock files
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check out bump.py from the Homebrew tap
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: n24q02m/homebrew-tap
+          path: .bump-tool
+          persist-credentials: false
+      - name: Manifests match the registry and their lock files
+        # Gate: each manifest's artifact and lock checksums match the release it names.
+        run: |
+          for app in wet mnemo crg telegram notion email workspace; do
+            python3 .bump-tool/scripts/bump.py "$app" --manifest "bucket/$app.json" --pinned --check
+          done
+      - name: Drift report
+        # Not a gate: a release published since the last bump waits for bump.yml.
+        run: |
+          for app in wet mnemo crg telegram notion email workspace; do
+            python3 .bump-tool/scripts/bump.py "$app" --manifest "bucket/$app.json" --check || echo "::warning::$app is behind the registry; dispatch bump.yml"
+          done
+
   scoop-install:
     name: scoop install (${{ matrix.app }})
     # Installs every registry-sourced manifest on the hosted Windows runner and checks
@@ -65,6 +92,16 @@ jobs:
           if ($hash -ne '94f983b190438311e006b957db7c8422709e0ba62a6c2ac04e278164108f2512') { throw "install.ps1 checksum $hash" }
           ./install.ps1 -RunAsAdmin
           "$env:USERPROFILE\scoop\shims" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+      - name: Point lock URLs at this commit
+        # Manifests fetch their lock files from main; until this commit merges they exist
+        # only at its sha.
+        env:
+          APP: ${{ matrix.app }}
+          SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          $path = "bucket/$env:APP.json"
+          $text = (Get-Content $path -Raw).Replace('/scoop-bucket/main/locks/', "/scoop-bucket/$env:SHA/locks/")
+          Set-Content -Path $path -Value $text -NoNewline
       - name: Install from this checkout
         # `scoop bucket add` only takes a Git URL, so install the manifest file directly. The
         # path must be absolute: scoop reads `bucket/<app>` as "<app> from bucket `bucket`".
