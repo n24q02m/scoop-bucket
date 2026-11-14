@@ -14,7 +14,9 @@ scoop install skret
 
 The `skret` manifest is auto-updated on each upstream release by [goreleaser](https://goreleaser.com/) — do not edit by hand.
 
-The other manifests install the release the registry serves: Python tools install the PyPI wheel into a private [uv](https://docs.astral.sh/uv/) virtualenv, Node tools install the npm tarball with its production dependencies. Their version, URL and hash are rewritten from the registry by [`scripts/bump.py`](https://github.com/n24q02m/homebrew-tap/blob/main/scripts/bump.py) in the Homebrew tap, which the upstream release pipeline runs after each stable release; CI installs every manifest on Windows and runs `--version`.
+The other manifests install the release the registry serves, with every dependency pinned by hash. Python tools install the PyPI wheel into a private [uv](https://docs.astral.sh/uv/) virtualenv from `locks/<name>-<version>.txt`, the release tag's `uv.lock` exported with hashes; a dependency that ships only an sdist builds with the hashed backends in `locks/<name>-<version>.build.txt`, and every step runs with `--require-hashes --only-binary :all:`. Node tools install the npm tarball and run `npm ci --omit=dev --ignore-scripts` against `locks/<name>-<version>.package-lock.json`, resolved from the published `package.json` as of its publish time.
+
+The `Bump` workflow (`bump.yml`, run by `workflow_dispatch` with a `package` and an optional `version`) runs [`scripts/bump.py`](https://github.com/n24q02m/homebrew-tap/blob/main/scripts/bump.py) from the Homebrew tap, which rewrites the version, URL and checksums from the registry and regenerates the lock files, then opens a pull request and merges it once its checks pass. CI checks every manifest against the registry and its lock files, warns about any manifest behind the registry latest, installs every manifest on Windows and runs `--version`.
 
 ## Available manifests
 
