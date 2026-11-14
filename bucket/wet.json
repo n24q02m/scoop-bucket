@@ -1,17 +1,23 @@
 {
-    "version": "3.20.0",
+    "version": "3.21.0",
     "description": "Streamable HTTP/stdio MCP server and CLI for web extraction and search",
     "homepage": "https://github.com/n24q02m/wet",
     "license": "Apache-2.0",
-    "url": "https://github.com/n24q02m/wet/archive/refs/tags/v3.20.0.zip",
-    "hash": "a3b717ab626942fd690844e08b89e66bb16c681ade548334087887c23d400c9d",
-    "extract_dir": "wet-3.20.0",
-    "suggest": {
-        "python": "python"
+    "depends": "uv",
+    "url": "https://files.pythonhosted.org/packages/31/0b/056960e573555060d079c4ee54b8cda11ee2230127cd18d94516d5891cc5/n24q02m_wet-3.21.0-py3-none-any.whl#/n24q02m_wet-3.21.0-py3-none-any.whl",
+    "hash": "c53f5422abc195483b14a77f00a77640d12083b60ef58b8b0fd6872a49483f25",
+    "installer": {
+        "script": [
+            "# The wheel pins only this package; its dependencies resolve from PyPI into a private venv.",
+            "uv venv \"$dir\\venv\" --python 3.13 --quiet",
+            "if ($LASTEXITCODE) { throw 'uv venv failed' }",
+            "uv pip install --python \"$dir\\venv\\Scripts\\python.exe\" \"$dir\\$fname\" --quiet",
+            "if ($LASTEXITCODE) { throw 'uv pip install failed' }"
+        ]
     },
     "bin": [
         [
-            "bin/wet.cmd",
+            "venv\\Scripts\\wet.exe",
             "wet"
         ]
     ]

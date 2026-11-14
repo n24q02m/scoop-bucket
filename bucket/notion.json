@@ -1,18 +1,21 @@
 {
-    "version": "2.42.0",
+    "version": "2.43.0",
     "description": "Notion workspace and document MCP server and CLI",
     "homepage": "https://github.com/n24q02m/notion",
     "license": "Apache-2.0",
-    "url": "https://github.com/n24q02m/notion/archive/refs/tags/v2.42.0.zip",
-    "hash": "08a47224ff0241fac859be880025238a5c68ec38fae2d6b91f759964f844cc86",
-    "extract_dir": "notion-2.42.0",
-    "suggest": {
-        "node": "nodejs"
-    },
-    "bin": [
-        [
-            "bin/cli.mjs",
-            "notion"
+    "depends": "nodejs",
+    "url": "https://registry.npmjs.org/@n24q02m/notion/-/notion-2.43.0.tgz",
+    "hash": "dbed8dc399c7af59bda609823786b1db00d71112e77a98c69cc813df2e2d9a19",
+    "extract_dir": "package",
+    "installer": {
+        "script": [
+            "Push-Location $dir",
+            "npm install --omit=dev --no-audit --no-fund --loglevel=error",
+            "$code = $LASTEXITCODE",
+            "Pop-Location",
+            "if ($code) { throw 'npm install failed' }",
+            "Set-Content -Path \"$dir\\notion.cmd\" -Value '@node \"%~dp0bin\\cli.mjs\" %*' -Encoding ascii"
         ]
-    ]
+    },
+    "bin": "notion.cmd"
 }
