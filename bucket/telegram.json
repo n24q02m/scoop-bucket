@@ -18,6 +18,7 @@
         "script": [
             "# Every dependency is pinned by hash: requirements.txt is the release tag's uv.lock exported",
             "# by bump.py, build-requirements.txt the build backends of dependencies that ship only an sdist.",
+            "# The lock is the release's resolved environment, uv overrides included, so there is no `uv pip check`.",
             "$py = \"$dir\\venv\\Scripts\\python.exe\"",
             "$pinned = @('--python', $py, '--require-hashes', '--only-binary', ':all:', '--no-deps', '--quiet')",
             "uv venv \"$dir\\venv\" --python 3.13 --quiet",
@@ -27,9 +28,7 @@
             "uv pip install @pinned --no-build-isolation -r \"$dir\\requirements.txt\"",
             "if ($LASTEXITCODE) { throw 'uv pip install (dependencies) failed' }",
             "uv pip install --python $py --no-deps --quiet (Get-ChildItem \"$dir\\*.whl\").FullName",
-            "if ($LASTEXITCODE) { throw 'uv pip install (wheel) failed' }",
-            "uv pip check --python $py --quiet",
-            "if ($LASTEXITCODE) { throw 'uv pip check failed' }"
+            "if ($LASTEXITCODE) { throw 'uv pip install (wheel) failed' }"
         ]
     },
     "bin": [
