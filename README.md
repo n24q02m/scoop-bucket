@@ -1,6 +1,6 @@
 # Scoop bucket — n24q02m
 
-**Scoop bucket for n24q02m's command-line tools, with manifests updated by GoReleaser on each upstream release.**
+**Scoop bucket for n24q02m's command-line tools, with every manifest pinned to its upstream's latest stable release.**
 
 [![CI](https://github.com/n24q02m/scoop-bucket/actions/workflows/ci.yml/badge.svg)](https://github.com/n24q02m/scoop-bucket/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
@@ -12,7 +12,9 @@ scoop bucket add n24q02m https://github.com/n24q02m/scoop-bucket
 scoop install skret
 ```
 
-Manifest files in `bucket/` are auto-updated on each upstream release by [goreleaser](https://goreleaser.com/) — do not edit by hand.
+The `skret` manifest is auto-updated on each upstream release by [goreleaser](https://goreleaser.com/) — do not edit by hand.
+
+The other manifests install the release the registry serves: Python tools install the PyPI wheel into a private [uv](https://docs.astral.sh/uv/) virtualenv, Node tools install the npm tarball with its production dependencies. Their version, URL and hash are rewritten from the registry by [`scripts/bump.py`](https://github.com/n24q02m/homebrew-tap/blob/main/scripts/bump.py) in the Homebrew tap, which the upstream release pipeline runs after each stable release; CI installs every manifest on Windows and runs `--version`.
 
 ## Available manifests
 

@@ -1,18 +1,28 @@
 {
-    "version": "2.21.0",
+    "version": "2.22.0",
     "description": "Episodic and semantic memory MCP server and CLI",
     "homepage": "https://github.com/n24q02m/mnemo",
     "license": "Apache-2.0",
-    "url": "https://github.com/n24q02m/mnemo/archive/refs/tags/v2.21.0.zip",
-    "hash": "1e9d395546b65e45916a0002bc19f6c1d022581c2cb3844047f9968d12b1ffe4",
-    "extract_dir": "mnemo-2.21.0",
-    "suggest": {
-        "python": "python"
+    "depends": "uv",
+    "url": "https://files.pythonhosted.org/packages/95/71/0b6ffcb758e19ee21548ade024aa21883c444fad5c200bad4a8f5bc1a5ea/n24q02m_mnemo-2.22.0-py3-none-any.whl#/n24q02m_mnemo-2.22.0-py3-none-any.whl",
+    "hash": "136862dc1f010c46e74c6cd3b7a8461e501a466fad9a71a68257c2cfe488b7fc",
+    "installer": {
+        "script": [
+            "# The wheel pins only this package; its dependencies resolve from PyPI into a private venv.",
+            "uv venv \"$dir\\venv\" --python 3.13 --quiet",
+            "if ($LASTEXITCODE) { throw 'uv venv failed' }",
+            "uv pip install --python \"$dir\\venv\\Scripts\\python.exe\" \"$dir\\$fname\" --quiet",
+            "if ($LASTEXITCODE) { throw 'uv pip install failed' }"
+        ]
     },
     "bin": [
         [
-            "bin/mnemo.cmd",
+            "venv\\Scripts\\mnemo.exe",
             "mnemo"
+        ],
+        [
+            "venv\\Scripts\\n24q02m-mnemo.exe",
+            "n24q02m-mnemo"
         ]
     ]
 }

@@ -1,17 +1,23 @@
 {
-    "version": "4.23.0",
+    "version": "4.24.0",
     "description": "Telegram client and bot MCP server and CLI",
     "homepage": "https://github.com/n24q02m/telegram",
     "license": "Apache-2.0",
-    "url": "https://github.com/n24q02m/telegram/archive/refs/tags/v4.23.0.zip",
-    "hash": "8f6da614a9efad755d2c080419f2858d1f103b18d10d3716e114602f6c2e7ac4",
-    "extract_dir": "telegram-4.23.0",
-    "suggest": {
-        "python": "python"
+    "depends": "uv",
+    "url": "https://files.pythonhosted.org/packages/c7/d8/63ea18bee72926ffa1521f778dd2f10dd3bdb74c47128b7a1d7ea017832d/n24q02m_telegram-4.24.0-py3-none-any.whl#/n24q02m_telegram-4.24.0-py3-none-any.whl",
+    "hash": "37a0535ca80377b2fcec9fb2040e3dced911e80994ea3b59270fad13fd83eaf1",
+    "installer": {
+        "script": [
+            "# The wheel pins only this package; its dependencies resolve from PyPI into a private venv.",
+            "uv venv \"$dir\\venv\" --python 3.13 --quiet",
+            "if ($LASTEXITCODE) { throw 'uv venv failed' }",
+            "uv pip install --python \"$dir\\venv\\Scripts\\python.exe\" \"$dir\\$fname\" --quiet",
+            "if ($LASTEXITCODE) { throw 'uv pip install failed' }"
+        ]
     },
     "bin": [
         [
-            "bin/telegram.cmd",
+            "venv\\Scripts\\telegram.exe",
             "telegram"
         ]
     ]

@@ -31,3 +31,56 @@ jobs:
         uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  scoop-install:
+    name: scoop install (${{ matrix.app }})
+    # Installs every registry-sourced manifest on the hosted Windows runner and checks
+    # that the installed CLI reports the manifest version.
+    runs-on: windows-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { app: wet, cli: wet }
+          - { app: mnemo, cli: n24q02m-mnemo }
+          - { app: crg, cli: crg }
+          - { app: telegram, cli: telegram }
+          - { app: notion, cli: notion }
+          - { app: email, cli: email }
+          - { app: workspace, cli: workspace }
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install Scoop
+        # The installer is pinned to a commit and its checksum for supply chain integrity.
+        run: |
+          $url = 'https://raw.githubusercontent.com/ScoopInstaller/Install/1e2f334083d609986d8c8bc9e31ae8e87c39fab4/install.ps1'
+          Invoke-WebRequest -Uri $url -OutFile install.ps1
+          $hash = (Get-FileHash install.ps1 -Algorithm SHA256).Hash.ToLower()
+          if ($hash -ne '94f983b190438311e006b957db7c8422709e0ba62a6c2ac04e278164108f2512') { throw "install.ps1 checksum $hash" }
+          ./install.ps1 -RunAsAdmin
+          "$env:USERPROFILE\scoop\shims" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+      - name: Install from this checkout
+        # `scoop bucket add` only takes a Git URL, so install the manifest file directly. The
+        # path must be absolute: scoop reads `bucket/<app>` as "<app> from bucket `bucket`".
+        # Its `depends` (uv, nodejs) still resolve from the main bucket.
+        env:
+          APP: ${{ matrix.app }}
+        run: |
+          scoop install (Join-Path $env:GITHUB_WORKSPACE "bucket\$env:APP.json")
+          if ($LASTEXITCODE) { throw "scoop install $env:APP failed" }
+      - name: CLI reports the manifest version
+        env:
+          APP: ${{ matrix.app }}
+          CLI: ${{ matrix.cli }}
+        run: |
+          $want = (Get-Content "bucket/$env:APP.json" -Raw | ConvertFrom-Json).version
+          $got = & $env:CLI --version
+          if ($LASTEXITCODE) { throw "$env:CLI --version exited $LASTEXITCODE" }
+          Write-Output "$env:CLI --version: $got"
+          if ("$got" -notmatch [regex]::Escape($want)) { throw "expected $want" }
