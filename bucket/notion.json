@@ -14,7 +14,9 @@
             "$code = $LASTEXITCODE",
             "Pop-Location",
             "if ($code) { throw 'npm install failed' }",
-            "Set-Content -Path \"$dir\\notion.cmd\" -Value '@node \"%~dp0bin\\cli.mjs\" %*' -Encoding ascii"
+            "# Run the node of the `nodejs` app this manifest depends on (a sibling app dir), not",
+            "# whatever node comes first on PATH: the package's engines need a current Node.",
+            "Set-Content -Path \"$dir\\notion.cmd\" -Value '@\"%~dp0..\\..\\nodejs\\current\\node.exe\" \"%~dp0bin\\cli.mjs\" %*' -Encoding ascii"
         ]
     },
     "bin": "notion.cmd"
