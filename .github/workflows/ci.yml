@@ -53,10 +53,10 @@ jobs:
             python3 .bump-tool/scripts/bump.py "$app" --manifest "bucket/$app.json" --pinned --check
           done
       - name: Drift report
-        # Not a gate: a release published since the last bump waits for bump.yml.
+        # Not a gate: a release published since the last bump waits for cd.yml.
         run: |
           for app in wet mnemo crg telegram notion email workspace; do
-            python3 .bump-tool/scripts/bump.py "$app" --manifest "bucket/$app.json" --check || echo "::warning::$app is behind the registry; dispatch bump.yml"
+            python3 .bump-tool/scripts/bump.py "$app" --manifest "bucket/$app.json" --check || echo "::warning::$app is behind the registry; dispatch cd.yml"
           done
 
   scoop-install:
