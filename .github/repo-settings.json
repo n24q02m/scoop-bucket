@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "tier": 2,
-  "description": "Scoop bucket for n24q02m's command-line tools, with manifests updated by GoReleaser on each upstream release.",
+  "description": "Scoop bucket for n24q02m's command-line tools, with every manifest pinned to its upstream's latest stable release.",
   "homepage": "https://github.com/n24q02m/scoop-bucket",
   "topics": [
     "scoop",
