@@ -94,13 +94,16 @@ jobs:
           "$env:USERPROFILE\scoop\shims" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
       - name: Point lock URLs at this commit
         # Manifests fetch their lock files from main; until this commit merges they exist
-        # only at its sha.
+        # only at its sha. That sha is the checked-out commit, which on a pull request is its
+        # merge with main: a head that lags main lacks the lock files main gained since, while
+        # the manifests under test already point at them.
         env:
           APP: ${{ matrix.app }}
-          SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
+          $sha = git rev-parse HEAD
+          if ($LASTEXITCODE) { throw "git rev-parse HEAD exited $LASTEXITCODE" }
           $path = "bucket/$env:APP.json"
-          $text = (Get-Content $path -Raw).Replace('/scoop-bucket/main/locks/', "/scoop-bucket/$env:SHA/locks/")
+          $text = (Get-Content $path -Raw).Replace('/scoop-bucket/main/locks/', "/scoop-bucket/$sha/locks/")
           Set-Content -Path $path -Value $text -NoNewline
       - name: Install from this checkout
         # `scoop bucket add` only takes a Git URL, so install the manifest file directly. The
