@@ -49,13 +49,13 @@ jobs:
       - name: Manifests match the registry and their lock files
         # Gate: each manifest's artifact and lock checksums match the release it names.
         run: |
-          for app in wet mnemo crg telegram notion email workspace; do
+          for app in wet mnemo crg telegram notion email workspace bsr fastretrieval; do
             python3 .bump-tool/scripts/bump.py "$app" --manifest "bucket/$app.json" --pinned --check
           done
       - name: Drift report
         # Not a gate: a release published since the last bump waits for cd.yml.
         run: |
-          for app in wet mnemo crg telegram notion email workspace; do
+          for app in wet mnemo crg telegram notion email workspace bsr fastretrieval; do
             python3 .bump-tool/scripts/bump.py "$app" --manifest "bucket/$app.json" --check || echo "::warning::$app is behind the registry; dispatch cd.yml"
           done
 
@@ -76,6 +76,8 @@ jobs:
           - { app: notion, cli: notion }
           - { app: email, cli: email }
           - { app: workspace, cli: workspace }
+          - { app: bsr, cli: bsr }
+          - { app: fastretrieval, cli: fastretrieval-server }
     defaults:
       run:
         shell: pwsh
