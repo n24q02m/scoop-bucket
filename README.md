@@ -30,6 +30,8 @@ The `CD` workflow (`cd.yml`, run by `workflow_dispatch` with a `package` and an 
 | email | Unified IMAP and SMTP email MCP server and CLI | [n24q02m/email](https://github.com/n24q02m/email) |
 | notion | Notion workspace and document MCP server and CLI | [n24q02m/notion](https://github.com/n24q02m/notion) |
 | workspace | Google Workspace MCP server and CLI | [n24q02m/workspace](https://github.com/n24q02m/workspace) |
+| bsr | Drop-in python-semantic-release fork with built-in release-safety guards | [n24q02m/better-semantic-release](https://github.com/n24q02m/better-semantic-release) |
+| fastretrieval | Multi-model retrieval runtime for ONNX and GGUF embeddings and reranking | [n24q02m/fastretrieval](https://github.com/n24q02m/fastretrieval) |
 
 ## License
 
