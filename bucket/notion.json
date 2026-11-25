@@ -1,16 +1,16 @@
 {
-    "version": "2.45.1",
+    "version": "2.46.0",
     "description": "Notion workspace and document MCP server and CLI",
     "homepage": "https://github.com/n24q02m/notion",
     "license": "Apache-2.0",
     "depends": "nodejs",
     "url": [
-        "https://registry.npmjs.org/@n24q02m/notion/-/notion-2.45.1.tgz",
-        "https://raw.githubusercontent.com/n24q02m/scoop-bucket/main/locks/notion-2.45.1.package-lock.json#/package-lock.json"
+        "https://registry.npmjs.org/@n24q02m/notion/-/notion-2.46.0.tgz",
+        "https://raw.githubusercontent.com/n24q02m/scoop-bucket/main/locks/notion-2.46.0.package-lock.json#/package-lock.json"
     ],
     "hash": [
-        "43c17838b31d3c1f7f477cee6223e279a4bb118ac9524ade85dbfd9fd7b8be92",
-        "bf6b3abf3ae5acc5b1b1466fb6dcd1d328d4c8306750cde4ddb720d579e26ab2"
+        "eb5ca02078c55b708ee5fe837d8f58f7ded98220aeb6925a155fbc90c261e055",
+        "efa922ba964f94d909148723728797c4be0bcd1f768c8b3c7de911afb6ae1858"
     ],
     "extract_dir": "package",
     "installer": {
